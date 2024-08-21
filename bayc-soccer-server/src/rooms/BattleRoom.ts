@@ -61,9 +61,9 @@ export class BattleRoom extends Room<MyRoomState> {
                     this.broadcast('game-event', { event: 'update-score', data: message.data });
 
                     break;
-                case "battle-time-update":
-                    this.broadcast('game-event', { event: 'battle-time-update', data: message.data });
-                    break;
+                // case "battle-time-update":
+                //     this.broadcast('game-event', { event: 'battle-time-update', data: message.data });
+                //     break;
                 case "update-ball":
 
                     // console.log("update-ball balls size: ",this.state.balls.size, "    message: ",message);
@@ -233,7 +233,7 @@ export class BattleRoom extends Room<MyRoomState> {
                 "userId": (player as any)?.player?.userId,
                 "walletid": (player as any)?.player?.walletId,
                 "playerId": (player as any)?.player?.playerId,
-                "result": player?.playerId == winnerId ? "win" : "lose"
+                "isWin": player?.playerId == winnerId ? 1 : 0
             }
             tokens[tokens.length] = player?.accessToken;
         });

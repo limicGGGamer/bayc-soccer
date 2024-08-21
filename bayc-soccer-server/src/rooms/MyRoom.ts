@@ -45,6 +45,9 @@ export class MyRoom extends Room<MyRoomState> {
 
       let ticket = null;
       const userInfo = await userme(options?.accessToken);
+
+      console.log("onAuth userme userInfo: ",userInfo);
+
       const _userInfo = userInfo?.data?.data;
       if(!_userInfo)
         throw new Error("userInfo not exists")
@@ -59,6 +62,8 @@ export class MyRoom extends Room<MyRoomState> {
   
       //user no ticket, check the game pass first..
       const gamePassPayload = await getGamePass(options.accessToken);
+      console.log("onAuth gamePassPayload: ",gamePassPayload?.data?.data);
+
       if(gamePassPayload.data.code !== 1)
         throw new Error("Get Game Pass Error.");
 
