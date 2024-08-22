@@ -31,7 +31,7 @@ export class MyRoom extends Room<MyRoomState> {
         throw new Error("Token not exists")
       }
 
-      console.log("onAuth options: ",options);
+      // console.log("onAuth options: ",options);
   
       const payload = await userinfo(options.accessToken);
       options.player.accessToken = options.accessToken;
@@ -46,7 +46,7 @@ export class MyRoom extends Room<MyRoomState> {
       let ticket = null;
       const userInfo = await userme(options?.accessToken);
 
-      console.log("onAuth userme userInfo: ",userInfo);
+      // console.log("onAuth userme userInfo: ",userInfo);
 
       const _userInfo = userInfo?.data?.data;
       if(!_userInfo)
@@ -62,7 +62,7 @@ export class MyRoom extends Room<MyRoomState> {
   
       //user no ticket, check the game pass first..
       const gamePassPayload = await getGamePass(options.accessToken);
-      console.log("onAuth gamePassPayload: ",gamePassPayload?.data?.data);
+      // console.log("onAuth gamePassPayload: ",gamePassPayload?.data?.data);
 
       if(gamePassPayload.data.code !== 1)
         throw new Error("Get Game Pass Error.");
@@ -116,7 +116,7 @@ export class MyRoom extends Room<MyRoomState> {
   onJoin (client: Client, options: any) {
     console.log("queue room on join reconnect token:", this.roomId+":"+ client?._reconnectionToken );
 
-    console.log("onJoin options: ", options);
+    // console.log("onJoin options: ", options);
 
     const player = this.state.createPlayer(client.sessionId, options?.player, this.state.players.size, options?.player?.uid, "queue", options?.player?.walletId, (client as any)?.ticket, (client as any)?.passCred);
     console.log("this.state.players.size: ",this.state.players.size);
