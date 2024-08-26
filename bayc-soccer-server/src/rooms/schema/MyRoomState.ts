@@ -9,8 +9,8 @@ export class MyRoomState extends Schema {
   @type({ map: Player }) players = new MapSchema<Player>();
   @type({ map: Ball }) balls = new MapSchema<Ball>();
 
-  createPlayer(sessionId: string, props: any, playerId:any, userId:string, state: string, walletId: string, ticket:string, passCred:string) {
-    console.log('createPlayer sessionId :', sessionId, '    playerId; ',playerId);
+  createPlayer(sessionId: string, props: any, playerId: any, userId: string, state: string, walletId: string, ticket: string, passCred: string) {
+    console.log('createPlayer sessionId :', sessionId, '    playerId; ', playerId, '    walletId: ', walletId ? walletId : "");
     //console.log('props :', props);
     const player = new Player().assign(props?.data || props);
     player.posX = -9999;
@@ -20,7 +20,7 @@ export class MyRoomState extends Schema {
     player.reserveSeat = false;
     player.userId = userId;
     player.state = state;
-    player.walletId = walletId;
+    player.walletId = walletId ? walletId : "";
     player.ticket = ticket;
     player.passCred = passCred;
     player.sessionId = sessionId;
@@ -29,7 +29,7 @@ export class MyRoomState extends Schema {
     return player;
   }
 
-  createBall(uId:string){
+  createBall(uId: string) {
     console.log('createBall ');
     const ball = new Ball();
     ball.uId = uId;

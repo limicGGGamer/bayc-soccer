@@ -5,6 +5,7 @@ export class Ball extends Schema {
     @type("number") posX!: number;
     @type("number") posY!: number;
     @type("number") angle!: number;
+    @type("number") opacity!: number;
     @type("boolean") visible!: boolean;
     
     @type("number") shadowPosX!: number;
@@ -13,7 +14,7 @@ export class Ball extends Schema {
     @type("number") shadowH!: number;
     @type("number") shadowW!: number;
     @type("number") shadowOpacity!: number;
-
-    @type("number") enableTrace!: boolean;
+    
+    @type("number") enableTrace!: number;
 
 }

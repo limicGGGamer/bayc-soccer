@@ -18,7 +18,7 @@ class MyRoomState extends schema_1.Schema {
         this.balls = new schema_1.MapSchema();
     }
     createPlayer(sessionId, props, playerId, userId, state, walletId, ticket, passCred) {
-        console.log('createPlayer sessionId :', sessionId, '    playerId; ', playerId);
+        console.log('createPlayer sessionId :', sessionId, '    playerId; ', playerId, '    walletId: ', walletId ? walletId : "");
         //console.log('props :', props);
         const player = new Player_1.Player().assign(props?.data || props);
         player.posX = -9999;
@@ -27,7 +27,7 @@ class MyRoomState extends schema_1.Schema {
         player.reserveSeat = false;
         player.userId = userId;
         player.state = state;
-        player.walletId = walletId;
+        player.walletId = walletId ? walletId : "";
         player.ticket = ticket;
         player.passCred = passCred;
         player.sessionId = sessionId;

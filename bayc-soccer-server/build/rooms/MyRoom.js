@@ -34,6 +34,7 @@ class MyRoom extends core_1.Room {
             options.player.uid = payload?.data?.data?.userId;
             options.player.walletId = payload?.data?.data?.connectedWallets[0].walletAddress;
             options.player.name = payload?.data?.data?.nickname;
+            // console.log("onAuth userinfo payload?.data?.data: ",payload?.data?.data);
             if (!payload) {
                 throw new Error("User not found");
             }
@@ -90,15 +91,35 @@ class MyRoom extends core_1.Room {
             throw new core_1.ServerError(400, "Bad access token");
         }
     }
-    onJoin(client, options) {
+    async onJoin(client, options) {
         console.log("queue room on join reconnect token:", this.roomId + ":" + client?._reconnectionToken);
-        // console.log("onJoin options: ", options);
+        console.log("onJoin options: ", options);
+        let shouldContinue = true;
+        this.state.players.forEach((player, sessionId) => {
+            if (options?.player?.uid == player.userId) {
+                console.log(`Queue room ${this.roomId} player ${player.userId} exist, sessionId: ${sessionId}.`);
+                try {
+                    this.state.players.delete(client.sessionId);
+                    console.log(`create-new-room player ${player.userId}`);
+                    client.send("create-new-room", {});
+                }
+                catch (e) {
+                    console.log(`Queue room ${this.roomId} remove old player ${player.userId} failed.`);
+                }
+                shouldContinue = false;
+                return false;
+            }
+        });
+        if (!shouldContinue)
+            return false;
         const player = this.state.createPlayer(client.sessionId, options?.player, this.state.players.size, options?.player?.uid, "queue", options?.player?.walletId, client?.ticket, client?.passCred);
         console.log("this.state.players.size: ", this.state.players.size);
         let canStartGame = this.state.players.size == this.maxClients;
         let players = [];
         this.state.players.forEach(player => {
-            let shortWalletId = player.walletId.substring(0, 10);
+            let shortWalletId = "";
+            if (player.walletId > "")
+                shortWalletId = player.walletId.substring(0, 10);
             let data = {
                 id: player.sessionId,
                 playerId: player.playerId,

@@ -61,21 +61,22 @@ export class BattleRoom extends Room<MyRoomState> {
                     this.broadcast('game-event', { event: 'update-score', data: message.data });
 
                     break;
-                // case "battle-time-update":
-                //     this.broadcast('game-event', { event: 'battle-time-update', data: message.data });
+                // case "create-ball":
+                //     this.broadcast('game-event', { event: 'create-ball', data: message.data });
                 //     break;
                 case "update-ball":
 
                     // console.log("update-ball balls size: ",this.state.balls.size, "    message: ",message);
 
                     this.state.balls.forEach((ball) => {
-                        ball.angle = message.angle;
                         ball.posX = message.posX;
                         ball.posY = message.posY;
+                        ball.angle = message.angle;
+                        ball.opacity = message.opacity;
                         
-                        ball.shadowAngle = message.shadowAngle;
                         ball.shadowPosX = message.shadowPosX;
                         ball.shadowPosY = message.shadowPosY;
+                        ball.shadowAngle = message.shadowAngle;
                         ball.shadowH = message.shadowH;
                         ball.shadowW = message.shadowW;
                         ball.shadowOpacity = message.shadowOpacity;
@@ -86,12 +87,19 @@ export class BattleRoom extends Room<MyRoomState> {
                     })
 
                     break;
+                case "show-ball-hit-effect":
+                    this.broadcast('game-event', { event: 'show-ball-hit-effect', data: message });
+                    break;
                 case "goal":
                     console.log("goal:", message);
                     this.broadcast('game-event', { event: 'goal', data: message });
-
                     break;
-
+                case "show-ball-hit-effect":
+                    this.broadcast('game-event', { event: 'show-ball-hit-effect', data: message });
+                    break;
+                case "end-game":
+                    this.broadcast('game-event', { event: 'end-game', data: message });
+                    break;
                 case "update-timer":
                     this.broadcast('game-event', { event: 'update-timer', data: message });
                     break
@@ -137,7 +145,6 @@ export class BattleRoom extends Room<MyRoomState> {
             }, 1000);
 
         }
-
     }
 
 

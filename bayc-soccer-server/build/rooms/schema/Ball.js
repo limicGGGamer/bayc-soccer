@@ -24,6 +24,9 @@ __decorate([
     (0, schema_1.type)("number")
 ], Ball.prototype, "angle", void 0);
 __decorate([
+    (0, schema_1.type)("number")
+], Ball.prototype, "opacity", void 0);
+__decorate([
     (0, schema_1.type)("boolean")
 ], Ball.prototype, "visible", void 0);
 __decorate([

@@ -46,7 +46,7 @@ export class GameOverRoom extends Room<MyRoomState> {
                 "userId": player?.userId,
                 "ticket_id": player?.gameSessionId,
                 "state": "gameover",
-                "game_id": "ElfinArrow",
+                "game_id": "baycSoccer",
                 "reconnectToken": "N/A"
             }
 
